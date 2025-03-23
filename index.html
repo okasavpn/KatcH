@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LIFF Login Redirect</title>
+  <meta charset="utf-8">
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>登入中，請稍候...</h2>
+
+  <script>
+    const makeWebhookUrl = "https://hook.us1.make.com/75q5hrm55hpjidbsnbm9j39cxd9mr3jh";
+
+    async function startLIFF() {
+      try {
+        await liff.init({ liffId: "2007047851-jJnD3Ekr" });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        const idToken = liff.getIDToken();
+        const endpoint = window.location.href;
+
+        // 將使用者資料傳送到 Make Webhook
+        const response = await fetch(makeWebhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            userId: profile.userId,
+            displayName: profile.displayName,
+            pictureUrl: profile.pictureUrl,
+            idToken: idToken,
+            liffId: "2007047851-jJnD3Ekr",
+            endpoint: endpoint
+          })
+        });
+
+        // 期待 Make 回傳要 redirect 的網址
+        const result = await response.json();
+        const redirectUrl = result.redirectUrl || "https://www.google.com";
+
+        // 自動跳轉
+        window.location.href = redirectUrl;
+
+      } catch (err) {
+        document.body.innerHTML = "<h3>發生錯誤，請稍後再試</h3><pre>" + err.message + "</pre>";
+        console.error(err);
+      }
+    }
+
+    startLIFF();
+  </script>
+</body>
+</html>
 
