@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const kexid = urlParams.get('kexid');
+      window.location.href = `formB?kexid=${kexid}`;
+    }
+  </script>
+</head>
+<body>轉址中...</body>
+</html>
