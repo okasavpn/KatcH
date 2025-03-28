@@ -5,25 +5,68 @@
   <title>正在登入</title>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      margin: 0; 
+      background-color: #f0f0f0; 
+    }
+    #status {
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-  <p>正在登入與重定向...</p>
+  <p id="status">正在準備重定向，請稍候...</p>
   <script>
     async function main() {
       try {
-        await liff.init({ liffId: "2007047851-QJ7ONvVk" });
+        // 初始化 LIFF
+        await liff.init({ liffId: "2007047851-3DRWNj2m" });
         await liff.ready;
+
+        // 檢查是否在 LINE 內部瀏覽器
+        if (!liff.isInClient()) {
+          document.getElementById('status').textContent = '請在 LINE 應用程式中開啟此連結';
+          return;
+        }
+
+        // 取得用戶 Profile
         const profile = await liff.getProfile();
         const uid = profile.userId;
-        const target = "https://www.aabbcc.com";
-        window.location.href = \`\${target}?kexid=\${uid}\`;
-      } catch (e) {
-        document.body.innerHTML = "<p>初始化失敗：" + e.message + "</p>";
-        console.error(e);
+
+        // 目標重定向網址
+        const target = "https://forms.katchme.life/t/k8aVoxVD6Jus";
+        const redirectUrl = `${target}?kexid=${uid}`;
+
+        // 多重重定向策略
+        setTimeout(() => {
+          // 方法1：window.location.replace
+          window.location.replace(redirectUrl);
+
+          // 方法2：如果第一種方法失敗
+          setTimeout(() => {
+            window.location.href = redirectUrl;
+          }, 1000);
+        }, 500);
+
+      } catch (error) {
+        console.error('重定向失敗:', error);
+        document.getElementById('status').textContent = `重定向失敗：${error.message}`;
       }
     }
-    main();
+
+    // 確保 LIFF SDK 載入後執行
+    if (window.liff) {
+      main();
+    } else {
+      document.getElementById('status').textContent = 'LIFF SDK 載入失敗';
+    }
   </script>
 </body>
-</html>`;
-}
+</html>
