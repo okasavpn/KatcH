@@ -1,38 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <title>LIFF 重定向</title>
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script>
-        // 配置將由 Make 動態插入
-        const LIFF_CONFIG = {
-            "liffId": "2007047851-Z5AlQrGP",
-            "targetUrl": "https://forms.katchme.life/t/vBVN7w474eus"
-        };
-
-        async function main() {
-            try {
-                // 初始化 LIFF
-                await liff.init({ liffId: LIFF_CONFIG.liffId });
-                await liff.ready;
-
-                // 取得使用者 Profile
-                const profile = await liff.getProfile();
-                const uid = profile.userId;
-
-                // 重定向到目標 URL
-                window.location.href = `${LIFF_CONFIG.targetUrl}?kexid=${uid}`;
-            } catch (error) {
-                console.error('LIFF 初始化錯誤:', error);
-                // 可以添加錯誤處理邏輯
-            }
-        }
-
-        main();
-    </script>
+  <meta charset="UTF-8">
+  <title>正在登入</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
-    <p>正在重定向，請稍候...</p>
+  <p>正在登入與重定向...</p>
+  <script>
+    async function main() {
+      try {
+        await liff.init();
+        await liff.ready;
+        const profile = await liff.getProfile();
+        const uid = profile.userId;
+        const target = "https://forms.katchme.life/t/k8aVoxVD6Jus"; // 實際表單
+        window.location.href = `${target}?kexid=${uid}`;
+      } catch (e) {
+        document.body.innerHTML = "<p>初始化失敗：" + e.message + "</p>";
+        console.error(e);
+      }
+    }
+    main();
+  </script>
 </body>
 </html>
+
