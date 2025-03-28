@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>正在登入</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <p>正在登入與重定向...</p>
+  <script>
+    async function main() {
+      try {
+        await liff.init({ liffId: "2007047851-QADWRo02" });
+        await liff.ready;
+        const profile = await liff.getProfile();
+        const uid = profile.userId;
+        const target = "https://www.aabbcc.com";
+        window.location.href = \`\${target}?kexid=\${uid}\`;
+      } catch (e) {
+        document.body.innerHTML = "<p>初始化失敗：" + e.message + "</p>";
+        console.error(e);
+      }
+    }
+    main();
+  </script>
+</body>
+</html>`;
+}
