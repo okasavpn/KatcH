@@ -11,11 +11,11 @@
   <script>
     async function main() {
       try {
-        await liff.init({ liffId: "2007047851-RkK42Woa" });
+        await liff.init({ liffId: "2007047851-V3pBQkGq" });
         await liff.ready;
         const profile = await liff.getProfile();
         const uid = profile.userId;
-        const target = "https://forms.katchme.life/t/erP8UAej8rus";
+        const target = "https://forms.katchme.life/t/vBVN7w474eus";
         window.location.href = `${target}?kexid=${uid}`;
       } catch (e) {
         document.body.innerHTML = "<p>初始化失敗：" + e.message + "</p>";
