@@ -9,7 +9,6 @@
   <!-- Open Graph 元標籤 -->
   <meta property="og:title" content="會員專屬登入頁面">
   <meta property="og:description" content="點擊此連結登入您的專屬會員頁面，享受獨家優惠與服務">
-  <meta property="og:image" content="https://www.notion.so/image/attachment%3A7098be10-865c-488e-918d-dffe0a7b201c%3A100%E5%85%83%E5%95%86%E5%93%81.png">
   <meta property="og:url" content="https://liff.line.me/2007047851-8VWaZzEj">
   <meta property="og:type" content="website">
   
@@ -60,11 +59,11 @@
   <script>
     async function main() {
       try {
-        await liff.init({ liffId: "2007047851-8VWaZzEj" });
+        await liff.init({ liffId: "2007047851-APeNq2bD" });
         await liff.ready;
         const profile = await liff.getProfile();
         const uid = profile.userId;
-        const target = "https://forms.katchme.life/t/vBVN7w474eus";
+        const target = "https://forms.katchme.life/t/erP8UAej8rus";
         window.location.href = `${target}?kexid=${uid}`;
       } catch (e) {
         document.querySelector('.loading-container').innerHTML = "<p>初始化失敗：" + e.message + "</p>";
