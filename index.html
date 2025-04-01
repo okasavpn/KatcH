@@ -61,10 +61,11 @@
       try {
         await liff.init({ liffId: "2007047851-5aaKL1Zl" });
         await liff.ready;
-        if (!liff.isLoggedIn()) {
-  liff.login(); // ⬅️ 電腦上會自動跳 LINE Login 頁面
-  return; // ⬅️ login() 會自動重導，這裡就不執行後面了
+if (!liff.isLoggedIn()) {
+  liff.login();
+  return;
 }
+
         const profile = await liff.getProfile();
         const uid = profile.userId;
         const target = "https://forms.katchme.life/t/vBVN7w474eus";
