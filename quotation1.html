@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>報價單</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      color: #333;
+    }
+    header, footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .logo {
+      height: 40px;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 6px;
+      font-size: 12px;
+    }
+    .remarks {
+      font-size: 10px;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .stamp {
+      width: 120px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="{{logo_url}}" class="logo" alt="Company Logo">
+    <div style="text-align:right; font-size: 12px">
+      <p>{{company_name}}</p>
+      <p>Tel: {{company_tel}}</p>
+      <p>Add: {{company_address}}</p>
+      <p>Web: {{company_website}}</p>
+    </div>
+  </header>
+
+  <h1>Cost Estimate</h1>
+
+  <table>
+    <tr>
+      <td><strong>DATE</strong></td>
+      <td>{{date}}</td>
+    </tr>
+    <tr>
+      <td><strong>CLIENT</strong></td>
+      <td>{{client_name}}</td>
+    </tr>
+    <tr>
+      <td><strong>CLIENT CONTACT</strong></td>
+      <td>{{client_contact}} ({{client_email}})</td>
+    </tr>
+    <tr>
+      <td><strong>PROJECT DESCRIPTION</strong></td>
+      <td>{{project_description}}</td>
+    </tr>
+    <tr>
+      <td><strong>25SPROUT CONTACT</strong></td>
+      <td>{{internal_contact}} ({{internal_email}})</td>
+    </tr>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Job Items</th>
+        <th>Job Description</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{item_name}}</td>
+        <td>{{item_description}}</td>
+        <td class="text-center">{{quantity}}</td>
+        <td class="text-right">{{unit_price}}</td>
+        <td class="text-right">{{price}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <table style="width: 300px; float: right;">
+    <tr>
+      <td>Sub-total:</td>
+      <td class="text-right">{{subtotal}}</td>
+    </tr>
+    <tr>
+      <td>Tax (5%):</td>
+      <td class="text-right">{{tax}}</td>
+    </tr>
+    <tr>
+      <td><strong>Total:</strong></td>
+      <td class="text-right"><strong>{{total}}</strong></td>
+    </tr>
+  </table>
+
+  <div style="clear: both;"></div>
+
+  <div class="remarks">
+    <p>1. 報價單所載價格為 NT${{monthly_price}} 元/使用/月，未報價但說明者價格為 NT${{optional_price}} 元/月。</p>
+    <p>2. 本報價單為預估報價單，預估有效期限為 {{quote_valid_until}}，本報價單一經用戶接受後，即具報價合約效力。</p>
+    <p>3. 本報價僅適用於 {{client_name}}，不得轉讓至其他單位。</p>
+    <p>4. 欲付款請匯款至新芽網路股份有限公司銀行帳戶：代碼006，帳號5399988000018。</p>
+  </div>
+
+  <footer style="margin-top: 40px;">
+    <div>
+      <p>Approved by</p>
+      <p>Signed by 25sprout</p>
+    </div>
+    <div>
+      <p>Approved by</p>
+      <p>Signed by client</p>
+    </div>
+    <img src="{{stamp_url}}" class="stamp" alt="Stamp">
+  </footer>
+</body>
+</html>
